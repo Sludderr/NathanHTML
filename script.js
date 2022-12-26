@@ -22,7 +22,10 @@ class Particle {
         this.y += this.yv * tx;
         this.xv *= 0.9 ** (tx / 100);
         this.yv *= 0.9 ** (tx / 100);
-        this.yv += gravity;
+        if (this.y >= canvas.height-45){
+            this.yv *= -1
+        }
+        this.yv += this.gravity;
         ctx.moveTo(this.x, this.y);
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
     }
