@@ -3,20 +3,31 @@ const ctx = canvas.getContext("2d");
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-let size = 10;
-let positionX = 500;
-let positionY = 100;
-let velocityX = 0;
-let velocityY = 0;
 
-function drawCircle(){
-    ctx.fillStyle = "black";
-    ctx.lineWidth = 5;
-    ctx.beginPath();
-    ctx.arc(positionX, positionY, size, 0, Math.PI * 2);
-    ctx.closePath();
-    ctx.fill();
+const gravity = 0.1;
+
+
+
+class Particle {
+    constructor(x,y,size) {
+        this.x = x;
+        this.y = y;
+        this.xv = 0;
+        this.yv = 0;
+        this.size = size;
+        this.gravity = gravity;
+    }
+    drawupdate() {
+        this.x += this.xv * tx;
+        this.y += this.yz * tx;
+        this.xv *= 0.9 ** (tx / 100);
+        this.yv *= 0.9 ** (tx / 100);
+        this.yv += gravity;
+        ctx.moveTo(this.x, this.y);
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    }
 }
+
 
 function drawRect(){
     ctx.fillStyle = "red";
@@ -27,16 +38,31 @@ function drawRect(){
     ctx.fill();
 }
 
-function animate(){
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    velocityY += 0.1633;
-    if (positionY >= canvas.height-45){
-        velocityY = 0
-    }
-    positionX += velocityX;
-    positionY += velocityY;
-    drawCircle();
-    drawRect();
-    requestAnimationFrame(animate);
+drawRect();
+const particles = [];
+for (let i = 0; i < 50; ++i) {
+    particles.push(new Particle(
+        Math.random() * 100,
+        Math.random() * 100,
+        5
+    ));
 }
-animate();
+
+let to = 0, tx;
+function frame(tt) {
+    tx = to - tt;
+    to = tt;
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    drawRect();
+    ctx.fillStyle = "black";
+    ctx.beginPath();
+    particles.forEach(i => {
+        i.drawupdate();
+    });
+    ctx.closePath();
+    ctx.fill();
+    requestAnimationFrame(frame);
+}
+
+
+frame();
