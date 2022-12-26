@@ -4,7 +4,7 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
 
-const gravity = 0.1;
+const gravity = -0.01;
 
 
 
@@ -19,7 +19,7 @@ class Particle {
     }
     drawupdate() {
         this.x += this.xv * tx;
-        this.y += this.yz * tx;
+        this.y += this.yv * tx;
         this.xv *= 0.9 ** (tx / 100);
         this.yv *= 0.9 ** (tx / 100);
         this.yv += gravity;
@@ -39,10 +39,11 @@ function drawRect(){
 }
 
 drawRect();
+
 const particles = [];
 for (let i = 0; i < 50; ++i) {
     particles.push(new Particle(
-        Math.random() * 100,
+        Math.random() * 1900,
         Math.random() * 100,
         5
     ));
@@ -64,5 +65,4 @@ function frame(tt) {
     requestAnimationFrame(frame);
 }
 
-
-frame();
+requestAnimationFrame(frame);
