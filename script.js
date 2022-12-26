@@ -18,12 +18,25 @@ function drawCircle(){
     ctx.fill();
 }
 
+function drawRect(){
+    ctx.fillStyle = "red";
+    ctx.lineWidth = 5;
+    ctx.beginPath();
+    ctx.rect(0, canvas.height-40, canvas.width, 20);
+    ctx.closePath();
+    ctx.fill();
+}
+
 function animate(){
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     velocityY += 0.1633;
+    if (positionY >= canvas.height-45){
+        velocityY = 0
+    }
     positionX += velocityX;
     positionY += velocityY;
     drawCircle();
+    drawRect();
     requestAnimationFrame(animate);
 }
 animate();
