@@ -6,9 +6,11 @@ canvas.height = window.innerHeight;
 
 var gravity = -0.01;
 var friction = 0.995;
+var bounce = 0.95;
 
 var gravslider = document.getElementById("gravityrange");
 var fricslider = document.getElementById("frictionrange");
+var bounceslider = document.getElementById("bouncerange");
 
 class Particle {
     constructor(x,y,size,xv) {
@@ -24,13 +26,13 @@ class Particle {
         this.gravity = gravity;
         this.friction = friction;
         if (this.y >= canvas.height-45){
-            this.yv *= -0.95
+            this.yv *= -bounce
         }
         if (this.x >= canvas.width-45){
-            this.xv *= -0.95
+            this.xv *= -bounce
         }
         if (this.x <= 45){
-            this.xv *= -0.95
+            this.xv *= -bounce
         }
         this.x += this.xv * tx;
         this.y += this.yv * tx;
@@ -53,6 +55,10 @@ fricslider.oninput = function() {
     else{
         friction = (this.value * 0.1);
     }
+}
+
+bounceslider.oninput = function() {
+    bounce = (this.value * 5)/100;
 }
 
 
