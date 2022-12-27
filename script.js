@@ -19,10 +19,6 @@ class Particle {
         this.friction = friction;
     }
     drawupdate() {
-        this.x += this.xv * tx;
-        this.y += this.yv * tx;
-        this.xv *= this.friction
-        this.yv *= this.friction
         if (this.y >= canvas.height-45){
             this.yv *= -0.95
         }
@@ -32,6 +28,10 @@ class Particle {
         if (this.x <= 45){
             this.xv *= -0.95
         }
+        this.x += this.xv * tx;
+        this.y += this.yv * tx;
+        this.xv *= this.friction
+        this.yv *= this.friction
         this.yv += this.gravity;
         ctx.moveTo(this.x, this.y);
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
