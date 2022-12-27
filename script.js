@@ -5,25 +5,32 @@ canvas.height = window.innerHeight;
 
 
 const gravity = -0.01;
-
+const friction = 0.995;
 
 
 class Particle {
-    constructor(x,y,size) {
+    constructor(x,y,size,xv) {
         this.x = x;
         this.y = y;
-        this.xv = 0;
+        this.xv = xv;
         this.yv = 0;
         this.size = size;
         this.gravity = gravity;
+        this.friction = friction;
     }
     drawupdate() {
         this.x += this.xv * tx;
         this.y += this.yv * tx;
-        this.xv *= 0.9 ** (tx / 100);
-        this.yv *= 0.9 ** (tx / 100);
+        this.xv *= this.friction
+        this.yv *= this.friction
         if (this.y >= canvas.height-45){
-            this.yv *= -1
+            this.yv *= -0.95
+        }
+        if (this.x >= canvas.width-45){
+            this.xv *= -0.95
+        }
+        if (this.x <= 45){
+            this.xv *= -0.95
         }
         this.yv += this.gravity;
         ctx.moveTo(this.x, this.y);
@@ -45,11 +52,23 @@ drawRect();
 
 const particles = [];
 for (let i = 0; i < 50; ++i) {
-    particles.push(new Particle(
-        Math.random() * 1900,
-        Math.random() * 100,
-        5
-    ));
+    if (i<25){
+        particles.push(new Particle(
+            Math.random() * 1900,
+            Math.random() * 100,
+            5,
+            Math.random()
+        ));
+    }
+    else{
+        particles.push(new Particle(
+            Math.random() * 1900,
+            Math.random() * 100,
+            5,
+            Math.random()*-1
+        ));
+    }
+    
 }
 
 let to = 0, tx;
