@@ -29,12 +29,15 @@ class Particle {
         this.friction = friction;
         this.wind = wind;
         if (this.y >= canvas.height-45){
+            this.y = canvas.height-45
             this.yv *= -bounce
         }
         if (this.x >= canvas.width-45){
+            this.x = canvas.width-45
             this.xv *= -bounce
         }
         if (this.x <= 45){
+            this.x = 45
             this.xv *= -bounce
         }
         this.x += this.xv * tx;
