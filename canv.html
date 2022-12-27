@@ -12,6 +12,23 @@
 
 <body>
     <canvas id="canvas1"></canvas>
+    <div class="slideheading">
+        <p>Gravity</p>
+    </div>
+    <div class="slidecontainer">
+        <input type="range" min="0" max="10" value="1" id="gravityrange" class="slider">
+    </div>
+    <div class="slideheading">
+        <p>Friction</p>
+    </div>
+    <div class="slidecontainer">
+        <input type="range" min="0" max="10" value="9" id="frictionrange" class="slider">
+    </div>
+    <div class="buttonreset">
+        <button onclick="reset()">Reset</button>
+    </div>
+    
+    
     <script src="script.js"></script>
 </body>
 
