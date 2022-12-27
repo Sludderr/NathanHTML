@@ -3,10 +3,9 @@ const ctx = canvas.getContext("2d");
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-
 var gravity = -0.01;
 var friction = 0.995;
-var bounce = 0.95;
+var bounce = 0.65;
 var wind = 0;
 
 var gravslider = document.getElementById("gravityrange");
@@ -83,8 +82,8 @@ function drawRect(){
 
 function reset(){
     particles = [];
-    for (let i = 0; i < 50; ++i) {
-        if (i<25){
+    for (let i = 0; i < document.getElementById("particletot").value; ++i) {
+        if (i<Math.floor(document.getElementById("particletot").value/2)){
             particles.push(new Particle(
                 Math.random() * 1900,
                 Math.random() * 100,
